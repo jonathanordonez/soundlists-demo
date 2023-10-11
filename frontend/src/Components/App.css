@@ -1,0 +1,917 @@
+/* Colors
+#1db954 green Spotify
+Purple: 822ecc
+
+*/
+
+html {
+  background-color: #f2f3f5;
+}
+
+#root {
+  background-color: #f2f3f5;
+}
+
+.overlay {
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+  opacity: 0.7;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  height: 100vh;
+}
+
+.overlayWelcome {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.1) 0%,
+    rgb(29, 185, 84) 100%
+  );
+  bottom: 0;
+  left: 0;
+  opacity: 0.7;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  height: 100vh;
+}
+
+.overlayContent {
+  background-color: white;
+  border-radius: 10px;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1 !important;
+  width: 400px;
+  height: 400px;
+  z-index: 3;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.welcomeContent {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.welcomeLogo {
+  padding: 20px;
+  width: 50%;
+}
+
+#welcomeUsernameH3 {
+  margin-bottom: 30px;
+}
+
+#username {
+  margin: 35px auto;
+}
+
+.homepageLogo {
+  height: 75%;
+  margin-right: 5px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logoNameContainer {
+  height: 100%;
+  display: inline-block;
+  margin-left: 50px;
+}
+
+.logoName {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Montserrat", sans-serif;
+  font-size: x-large;
+  display: inline-block;
+  color: #1db954;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.logoName:hover {
+  color: #1db954;
+}
+
+.overlayBody {
+  height: 100%;
+  overflow: hidden;
+}
+
+.settings {
+  margin-top: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.settingsCloseButtonContainer {
+  position: absolute;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  padding-right: 15px;
+  text-align: right;
+  user-select: none;
+  text-align: right;
+  width: 100%;
+}
+
+.settingsCloseButton {
+  display: inline-block;
+  cursor: pointer;
+  color: #767676;
+  font-weight: 500;
+}
+
+.changeProfilePicture {
+  padding: 15px;
+  display: block;
+  border-radius: 200px;
+  width: 250px;
+  height: 250px;
+  background-color: white;
+  /* background-color: rgb(247, 241, 241); */
+  margin: auto;
+  cursor: pointer;
+}
+
+.changeProfilePictureInput {
+  display: none;
+}
+
+.signout {
+  margin-top: 20px !important;
+  display: block;
+  margin: auto;
+  background-color: #ff3b3b;
+  color: white;
+  border: 0px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 6px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  box-shadow: 0px 5px 0px 0px #de0000;
+}
+
+.signout:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.signout:hover {
+  background-color: red;
+}
+
+nav {
+  z-index: 1;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  min-height: 55px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  display: grid;
+  /* grid-template-columns: 0.5fr 1fr 0.5fr; */
+}
+
+.navContainer {
+  margin: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  height: 100% !important;
+  margin-top: 0px !important;
+  background-color: white !important;
+  max-height: 55px;
+}
+
+.navProfilePic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50px;
+  float: right;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 45px;
+}
+
+.navProfileOptions {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  right: 50px;
+  top: 46px;
+  border-radius: 20px;
+  margin: 10px 5px;
+  overflow: hidden;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.navProfileOptions hr {
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.navProfileOption {
+  cursor: pointer;
+  padding: 10px 30px;
+  background-color: black;
+  color: white;
+}
+
+.navOptions {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 20px;
+  padding-right: 20px;
+  float: right;
+}
+
+.navOptions h4 {
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.navOptions a {
+  text-decoration: none;
+  color: #000;
+}
+
+.toast {
+  border-radius: 5px;
+  margin: auto;
+  width: 300px;
+  z-index: 4;
+  top: 65px;
+  position: sticky;
+  background-color: #822ecc;
+  color: white;
+  display: flex;
+  font-size: large;
+  justify-content: center;
+  box-shadow: 0px 5px 0px 0px #6915b3;
+  cursor: pointer;
+}
+
+.toast:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.toast-body {
+  width: 300px;
+  display: inline-block;
+  text-align: center;
+}
+
+.toast-button {
+  display: inline-block;
+  padding: 0.75rem;
+  font-size: medium;
+  cursor: pointer;
+}
+
+.toast-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  margin-top: 50px;
+  background-color: #f2f3f5;
+  max-width: 600px !important;
+  padding: 0px;
+}
+
+.main-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feed {
+  background-color: #f2f3f5;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.sharePlaylist,
+.searchFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px 10px 30px 10px;
+}
+
+.sharePlaylist input {
+  background-color: #f2f3f5;
+  color: black;
+}
+
+.sharePlaylist input::placeholder {
+  color: gray;
+}
+
+.searchLabel:first-child,
+.searchFilter:first-child {
+  margin-top: 20px;
+}
+
+.genreLabel {
+  margin-top: 25px !important;
+}
+
+.sharePlaylist label,
+.searchFilter label {
+  display: block;
+  margin: auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.displayNone {
+  /* display: none !important; */
+}
+
+.tagsInput,
+.textInput {
+  min-width: 277px;
+  box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.8);
+  background-color: #f2f3f5;
+  margin: 20px auto;
+  display: block;
+  padding: 15px;
+  border: 0px;
+  height: 50px;
+  border-radius: 5px;
+  font-style: italic;
+  cursor: auto;
+  text-align: center;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+.tagsInput::placeholder {
+  color: gray;
+}
+
+.tagContainer {
+  text-transform: lowercase;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #822ecc;
+  color: white;
+}
+
+.postTag span {
+  background-color: #822ecc;
+  color: white;
+  text-transform: lowercase;
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.postTag span::before {
+  content: "#";
+}
+
+.postHeaderFree {
+  display: flex;
+  padding: 20px 10px;
+}
+
+.tagContainer .tagName {
+  margin-bottom: 0 !important;
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.tagCloseButton {
+  margin-bottom: 0 !important;
+  display: inline-block;
+  font-size: x-small;
+  color: #f2f3f5;
+  cursor: pointer;
+  position: absolute;
+  transform: translateY(-50%);
+  margin-top: 3px;
+  padding-right: 1px;
+}
+
+.tags {
+  margin: 20px auto;
+  width: 277px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tags div {
+  margin-bottom: 0px !important;
+  /* flex-basis: 25%; */
+  text-align: center;
+  margin-right: 10px;
+  padding: 5px 15px;
+}
+
+.playlistSelector,
+collectionSelector {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding-left: 35px;
+  padding-right: 35px;
+  border: 0px;
+  height: 50px;
+  font-style: italic;
+  color: black;
+  letter-spacing: 1px;
+  font-weight: 400;
+  max-width: 43%;
+}
+
+.playlistSelectorTemp {
+  color: gray;
+}
+
+.playlistSelector option {
+  text-align: center;
+}
+
+.postPlaylistButton,
+.searchButton {
+  border: 0px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  background-color: #2ecc71;
+  box-shadow: 0px 5px 0px 0px #15b358;
+}
+
+.postPlaylistButton:active,
+.searchButton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.postPlaylistButton:hover,
+.searchButton:hover {
+  background-color: #48e68b;
+}
+
+.posts {
+  border-radius: 40px;
+}
+
+.post {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.postAdd {
+  /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); */
+  background-color: #f2f3f5;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.postMeta {
+  display: flex;
+  /* grid-template-columns: 0.2fr 0.8fr 0.2fr; */
+  border-radius: 40px 40px 0px 0px;
+  padding: 0px 20px 20px 20px;
+  /* position: relative; */
+}
+
+.postHeaderFree .postTitle {
+  padding: 20px 0px 0px 0px !important;
+  display: flex;
+}
+
+.postTitle {
+  justify-content: center;
+  display: grid;
+}
+
+.postTitle h3 {
+  margin-bottom: 0px !important;
+  font-size: 20px;
+}
+
+.postPlayOptions {
+  display: grid;
+}
+
+.postPlayButton {
+  margin-left: 5px;
+}
+
+.postProgressBar {
+  min-width: 140px;
+  width: 100%;
+}
+
+.playButton {
+  border-radius: 50px;
+  width: 50px !important;
+  height: 50px;
+  border: 2px solid !important;
+}
+
+.playButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playBackControlsAndProgressBar {
+  display: flex;
+  justify-content: center;
+}
+
+.progressBar {
+  min-width: 70%;
+}
+
+.postTagsAndOptions {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+}
+
+.postTag {
+  display: inline-block;
+  margin-left: 3em;
+  padding: 2px 10px;
+  margin-bottom: 2px;
+  /* cursor: pointer; */
+  user-select: none;
+  flex-basis: 100%;
+  margin-bottom: 8px;
+}
+
+.postTags {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.profileDetails {
+  padding-left: 10px;
+  /* display: inline-block; */
+  display: flex;
+  align-items: center;
+
+  /* top: 50%; */
+  /* position: absolute; */
+  /* transform: translateY(-50%); */
+}
+
+.postUsername {
+  font-weight: 600;
+}
+
+.postTitle p {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0px;
+  align-self: center;
+}
+
+.postProfile {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  min-width: 50px;
+  /* display: inline-block; */
+}
+
+.usernameDetails {
+  color: #767676;
+}
+
+.profilePicPost {
+  width: 65px;
+  border-radius: 50px;
+  align-self: center;
+  /* cursor: pointer; */
+}
+
+.profilePicContainer {
+  display: inline-block;
+  height: 100%;
+}
+
+.profilePicContainer div {
+  height: 100%;
+  display: flex;
+}
+
+.postContentWrapper {
+  overflow: hidden;
+  border-radius: 0px 0px 40px 40px;
+}
+
+.postContent {
+  background-color: black;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow: auto;
+  color: white;
+}
+.postOptionsContainer {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  text-align: right;
+  display: flex;
+}
+
+.postOptionsContainer svg {
+  width: 25px;
+}
+
+.postOptionsContainer svg:hover {
+  cursor: pointer;
+}
+
+/* .postOptionsButton {
+  background-color: blue;
+  font-weight: 400;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  margin-bottom: 0 !important;
+  height: 100%;
+} */
+
+.postOptions {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  right: -164px;
+  top: 18px;
+  border-radius: 20px;
+  margin: 10px 5px;
+  overflow: hidden;
+  text-align: center;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+.postOptions hr {
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.copyToSpotify:hover,
+.copyLink:hover {
+  background-color: #1db954;
+  color: white;
+}
+
+.delete:hover {
+  background-color: red;
+  color: white;
+}
+
+.recordSong {
+  background: #1db954;
+}
+
+.searchContainer {
+  position: sticky;
+  top: 74px;
+  height: calc(100vh - 104px);
+  padding-left: 25px;
+  padding-right: 50px;
+}
+
+.card-right {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  color: black;
+}
+
+.card-right-share {
+  min-height: 380px;
+}
+
+.card-right-filter {
+  min-height: 300px;
+}
+
+.searchField {
+  margin-bottom: 20px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+#searchDate {
+  display: block;
+  margin: auto;
+  background-color: #f2f3f5 !important;
+  border-radius: 20px;
+  border-color: #f2f3f5 !important;
+}
+
+.searchButton {
+  margin: auto;
+  display: block;
+}
+
+.buttonPurple {
+  background-color: #822ecc !important;
+  box-shadow: 0px 5px 0px 0px #6915b3 !important;
+}
+
+.buttonPurple:hover {
+  background-color: #9840e6 !important;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.songsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.song {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  overflow: hidden;
+}
+
+.songName {
+  font-size: small;
+  font-weight: 600;
+}
+
+.songArtist {
+  font-size: small;
+}
+
+.songDetails {
+  padding-left: 2px;
+}
+
+.recordSong {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  max-height: 64px;
+}
+
+.playbackButton {
+  width: 40px;
+  color: black;
+  background: white;
+  border: none;
+}
+
+.playbackButton svg {
+  min-width: 20px;
+}
+
+@media (max-width: 7050px) {
+  .postProfile {
+    flex-direction: column;
+  }
+  .profileDetails {
+    /* justify-content: center; */
+    padding-left: 0px;
+  }
+
+  .profilePicPost {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profilePicContainer div {
+    /* justify-content: center; */
+  }
+
+  .postUsername {
+    font-size: 14px;
+    padding-left: 5px;
+    z-index: 2;
+  }
+
+  .playButton {
+    width: 40px;
+  }
+
+  .playlistSelector {
+    font-size: 14px;
+    height: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
+    max-width: 250px;
+    width: 60%;
+  }
+
+  .postPlaylistButton {
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 16px;
+  }
+
+  .postMeta {
+    padding: 0px 15px 20px 15px;
+  }
+
+  .postTracks {
+    padding: 0px 15px 20px 15px !important;
+  }
+
+  .sharePlaylist {
+    justify-content: space-around;
+  }
+
+  .logoNameContainer {
+    margin-left: 25px;
+  }
+  .navProfilePic {
+    margin-right: 25px;
+  }
+
+  .postFooter svg {
+    max-width: 38px;
+  }
+
+  .trackName,
+  .trackArtist {
+    font-size: 14px;
+  }
+
+  .trackDetails {
+    padding: 10px !important;
+  }
+
+  .imageContainer {
+    justify-content: flex-start !important;
+    width: 50px !important;
+  }
+
+  .postTitle {
+    padding: 30px 15px 0px 15px;
+  }
+}
+
+@media (min-width: 550px) {
+  .postMeta {
+    /* grid-template-columns: 0.2fr 0.8fr 0.2fr !important; */
+  }
+}

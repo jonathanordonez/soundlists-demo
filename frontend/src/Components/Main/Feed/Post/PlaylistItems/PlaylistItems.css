@@ -1,0 +1,13 @@
+.postTracks {
+  padding: 0px 0px 20px 20px;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+.postTracks::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+.postTracks::-webkit-scrollbar-track {
+  background-color: red !important; /* Background color of the track */
+}
