@@ -11,7 +11,8 @@ export default function PlaylistItems({ propsSongs, postId, handleSrc }) {
 
   // Fetches the songs in the Playlist (images, uri, artists)
   useEffect(() => {
-    if (propsSongs.length > 0) {
+
+    if (propsSongs.length > 0 && tokenContext.token) {
       const fetchSongs = async () => {
         try {
           const response = await axios.get(

@@ -19,7 +19,6 @@ export default function Post({
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
 
-  console.log("this post", post);
   return (
     <>
       <li
@@ -58,23 +57,9 @@ export default function Post({
     setHandlePlayPauseFromPlaylist((previous) => previous + 1);
   }
 
-  function getFreePostTitleWidth() {
-    const postId = document.getElementById(post.id);
-
-    const postProfile = postId.querySelector(".postProfile");
-
-    const width = `width: calc(100% - ${postProfile.clientWidth * 2}px)`;
-
-    const postProfileTitle = postId.querySelector(".postTitle");
-    postProfileTitle.setAttribute("style", `${width}`);
-  }
-
-  function getPlaylistName(post) {
-    console.log("this post id ", post.id);
+  function shortenPlaylistName(post) {
     const feedElement = document.getElementsByClassName("feed")[0];
-    console.log("this postElement ", feedElement);
     const feedWidth = feedElement.clientWidth;
-    console.log("this feed width", feedWidth);
     if (feedWidth < 400 && post.playlist_name.length > 15) {
       return `${post.playlist_name.slice(0, 15)}...`;
     } else {
