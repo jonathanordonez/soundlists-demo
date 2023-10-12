@@ -19,7 +19,7 @@ html {
   opacity: 0.7;
   position: absolute;
   right: 0;
-  z-index: 2;
+  z-index: 3;
   height: 100vh;
 }
 
@@ -86,6 +86,7 @@ html {
   height: 100%;
   display: inline-block;
   margin-left: 50px;
+  margin-left: 25px;
 }
 
 .logoName {
@@ -182,7 +183,7 @@ html {
 }
 
 nav {
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   position: fixed;
   top: 0;
@@ -211,7 +212,7 @@ nav {
   float: right;
   cursor: pointer;
   padding: 5px;
-  margin-right: 45px;
+  margin-right: 25px;
 }
 
 .navProfileOptions {
@@ -321,7 +322,7 @@ nav {
 .searchFilter {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin: 20px 10px 30px 10px;
 }
 
@@ -404,7 +405,7 @@ input::placeholder {
 
 .postHeaderFree {
   display: flex;
-  padding: 20px 10px;
+  padding: 20px 15px;
 }
 
 .tagContainer .tagName {
@@ -447,15 +448,17 @@ collectionSelector {
   border-radius: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   display: inline-block;
-  padding-left: 35px;
-  padding-right: 35px;
   border: 0px;
-  height: 50px;
   font-style: italic;
   color: black;
   letter-spacing: 1px;
   font-weight: 400;
-  max-width: 43%;
+  font-size: 14px;
+  height: 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  max-width: 250px;
+  width: 60%;
 }
 
 .playlistSelectorTemp {
@@ -473,14 +476,15 @@ collectionSelector {
   letter-spacing: 1px;
   text-align: center;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 18px;
   font-weight: 500;
   color: #fff;
   position: relative;
   display: inline-block;
   background-color: #2ecc71;
   box-shadow: 0px 5px 0px 0px #15b358;
+  height: 40px;
+  padding: 0px 10px;
+  font-size: 16px;
 }
 
 .postPlaylistButton:active,
@@ -517,25 +521,33 @@ collectionSelector {
 
 .postMeta {
   display: flex;
-  /* grid-template-columns: 0.2fr 0.8fr 0.2fr; */
+  padding: 0px 15px 20px 15px;
   border-radius: 40px 40px 0px 0px;
-  padding: 0px 20px 20px 20px;
-  /* position: relative; */
+}
+
+.postTracks {
+  padding: 0px 15px 20px 15px !important;
+}
+
+.postFooter svg {
+  max-width: 38px;
 }
 
 .postHeaderFree .postTitle {
   padding: 20px 0px 0px 0px !important;
+  width: calc(100% - 100px);
   display: flex;
 }
 
 .postTitle {
   justify-content: center;
   display: grid;
+  padding: 30px 15px 0px 15px;
 }
 
 .postTitle h3 {
   margin-bottom: 0px !important;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .postPlayOptions {
@@ -553,7 +565,7 @@ collectionSelector {
 
 .playButton {
   border-radius: 50px;
-  width: 50px !important;
+  width: 40px !important;
   height: 50px;
   border: 2px solid !important;
 }
@@ -600,18 +612,21 @@ collectionSelector {
 }
 
 .profileDetails {
-  padding-left: 10px;
-  /* display: inline-block; */
   display: flex;
   align-items: center;
-
-  /* top: 50%; */
-  /* position: absolute; */
-  /* transform: translateY(-50%); */
+  justify-content: center;
+  padding-left: 0px;
 }
 
 .postUsername {
   font-weight: 600;
+  font-size: 14px;
+  padding-left: 5px;
+  z-index: 1;
+}
+
+p {
+  margin-bottom: 0px !important;
 }
 
 .postTitle p {
@@ -624,11 +639,11 @@ collectionSelector {
 }
 
 .postProfile {
+  flex-direction: column;
   display: flex;
   grid-column-start: 1;
   grid-column-end: 1;
   min-width: 50px;
-  /* display: inline-block; */
 }
 
 .usernameDetails {
@@ -636,10 +651,10 @@ collectionSelector {
 }
 
 .profilePicPost {
-  width: 65px;
   border-radius: 50px;
   align-self: center;
-  /* cursor: pointer; */
+  width: 40px;
+  height: 40px;
 }
 
 .profilePicContainer {
@@ -650,6 +665,7 @@ collectionSelector {
 .profilePicContainer div {
   height: 100%;
   display: flex;
+  justify-content: center;
 }
 
 .postContentWrapper {
@@ -678,17 +694,6 @@ collectionSelector {
 .postOptionsContainer svg:hover {
   cursor: pointer;
 }
-
-/* .postOptionsButton {
-  background-color: blue;
-  font-weight: 400;
-  font-size: 40px;
-  cursor: pointer;
-  user-select: none;
-  vertical-align: middle;
-  margin-bottom: 0 !important;
-  height: 100%;
-} */
 
 .postOptions {
   background-color: white;
@@ -825,93 +830,16 @@ ul {
   min-width: 20px;
 }
 
-@media (max-width: 7050px) {
-  .postProfile {
-    flex-direction: column;
-  }
-  .profileDetails {
-    /* justify-content: center; */
-    padding-left: 0px;
-  }
-
-  .profilePicPost {
-    width: 40px;
-    height: 40px;
-  }
-
-  .profilePicContainer div {
-    /* justify-content: center; */
-  }
-
-  .postUsername {
-    font-size: 14px;
-    padding-left: 5px;
-    z-index: 2;
-  }
-
-  .playButton {
-    width: 40px;
-  }
-
-  .playlistSelector {
-    font-size: 14px;
-    height: 40px;
-    padding-right: 10px;
-    padding-left: 10px;
-    max-width: 250px;
-    width: 60%;
-  }
-
-  .postPlaylistButton {
-    height: 40px;
-    padding: 0px 10px;
-    font-size: 16px;
-  }
-
-  .postMeta {
-    padding: 0px 15px 20px 15px;
-  }
-
-  .postTracks {
-    padding: 0px 15px 20px 15px !important;
-  }
-
-  .sharePlaylist {
-    justify-content: space-around;
-  }
-
-  .logoNameContainer {
-    margin-left: 25px;
-  }
-  .navProfilePic {
-    margin-right: 25px;
-  }
-
-  .postFooter svg {
-    max-width: 38px;
-  }
-
-  .trackName,
-  .trackArtist {
-    font-size: 14px;
-  }
-
-  .trackDetails {
-    padding: 10px !important;
-  }
-
-  .imageContainer {
-    justify-content: flex-start !important;
-    width: 50px !important;
-  }
-
-  .postTitle {
-    padding: 30px 15px 0px 15px;
-  }
+.imageContainer {
+  justify-content: flex-start !important;
+  width: 50px !important;
 }
 
-@media (min-width: 550px) {
-  .postMeta {
-    /* grid-template-columns: 0.2fr 0.8fr 0.2fr !important; */
-  }
+.trackDetails {
+  padding: 10px !important;
+}
+
+.trackName,
+.trackArtist {
+  font-size: 14px;
 }

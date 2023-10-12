@@ -1,5 +1,4 @@
-import React, { useEffect, useContext } from "react";
-import { useState } from "react";
+import React, { useContext } from "react";
 import { addSongsToPlaylist, createPlaylist } from "../../../Utils";
 import { UserDetailsContext } from "../../App";
 import { TokenContext } from "../../App";
@@ -8,6 +7,7 @@ import {
   getOverlayContentTop,
   getOverlayTop,
 } from "../../../Utils";
+import "./OverlayCopyToSpotify.css";
 
 export default function OverlayCopyToSpotify({
   setOverlayOnHandlerCopyToSpotify,
@@ -36,11 +36,9 @@ export default function OverlayCopyToSpotify({
           <div className="settings">Copy to Spotify</div>
         </div>
         <hr></hr>
-        <div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {<p>Copy playlist as:</p>}
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="copyContent">
+          <div className="copyAsHeader">{<p>Copy playlist as:</p>}</div>
+          <div className="copyAsValue">
             <input
               id="playlistNameToCopy"
               type="text"
@@ -48,11 +46,10 @@ export default function OverlayCopyToSpotify({
               style={{ display: "block" }}
             ></input>
           </div>
-        </div>
-        <div
-          style={{ display: "flex", justifyContent: "center", margin: "20px" }}
-        >
-          <button className="postPlaylistButton" onClick={copyToSpotify}>
+          <button
+            className="postPlaylistButton copyButton"
+            onClick={copyToSpotify}
+          >
             Copy
           </button>
         </div>
@@ -65,13 +62,19 @@ export default function OverlayCopyToSpotify({
       spotifyUserId,
       document.getElementById("playlistNameToCopy").value,
       "Created via Soundlists.com",
-      tokenContext
+      tokenContext.token
     );
+
+    if (!playlist.id) {
+      const newToast = updateToast();
+      newToast(`Error creating playlist: ${overlayData.playlistName}`);
+      return;
+    }
 
     const addSongs = await addSongsToPlaylist(
       playlist.id,
       overlayData.trackUris,
-      tokenContext
+      tokenContext.token
     );
 
     setOverlayOnHandlerCopyToSpotify();
@@ -79,8 +82,9 @@ export default function OverlayCopyToSpotify({
     if (addSongs.snapshot_id) {
       const newToast = updateToast();
       newToast(`${overlayData.playlistName} copied to Spotify`);
+    } else {
+      const newToast = updateToast();
+      newToast(`Error creating playlist: ${overlayData.playlistName}`);
     }
-
-    console.log("this ", addSongs);
   }
 }

@@ -9,13 +9,11 @@ export default function PostProfile({ post, profilePicture }) {
             className="profilePicPost"
             src={postProfilePicture(post)}
             alt="profile"
-            // onClick={visitUserProfile}
           ></img>
         </div>
       </div>
 
       <div className="profileDetails">
-        {/* <div className="usernameDetails">{post.collectionName}</div> */}
         <div className="postUsername">{post.username}</div>
       </div>
     </div>
