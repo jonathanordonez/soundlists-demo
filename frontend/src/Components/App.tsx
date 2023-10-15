@@ -2,16 +2,43 @@ import "./App.css";
 import { createContext, useEffect, useState } from "react";
 import Main from "./Main/Main";
 import UseToken from "../Hooks/UseToken";
+import React from "react";
 
-export const TokenContext = createContext();
-export const UserDetailsContext = createContext();
+export interface TokenContextType  {
+  tokenContext: TokeContextValues | undefined;
+  setTokenContext: React.Dispatch<React.SetStateAction<TokeContextValues | undefined>>;
+};
+
+interface TokeContextValues  
+  {
+    token: string | null;
+    expiresIn: string | null;
+  }
+
+
+export interface UserDetailsContextType {
+  userDetailsContext: UserDetailsValues | undefined;
+  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValues | undefined>>
+}
+
+interface UserDetailsValues  
+  {
+    username: string | null,
+    profilePicture: string | null,
+    spotifyUserId:string | null
+  }
+
+
+export const TokenContext = createContext<TokenContextType | undefined>(undefined);
+export const UserDetailsContext = createContext<UserDetailsContextType | undefined>(undefined);
 
 function App() {
-  const [tokenContext, setTokenContext] = useState({
+  const [tokenContext, setTokenContext] = useState<TokeContextValues | undefined>({
     token: window.localStorage.getItem("token"),
     expiresIn: window.localStorage.getItem("expiresIn"),
   });
-  const [userDetailsContext, setUserDetailsContext] = useState({
+  UseToken()
+  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValues | undefined>({
     username: "",
     profilePicture: "default-profile-pic.jpg",
     spotifyUserId: "",
@@ -39,7 +66,6 @@ function App() {
       <UserDetailsContext.Provider
         value={{ userDetailsContext, setUserDetailsContext }}
       >
-        <UseToken />
         <Main />
       </UserDetailsContext.Provider>
     </TokenContext.Provider>
