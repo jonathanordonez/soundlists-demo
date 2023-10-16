@@ -6,20 +6,20 @@ export default function UseToken() {
     token: window.localStorage.getItem("token"),
     expiresIn: window.localStorage.getItem("expiresIn"),
   });
-  const tokenRefreshTimeout = useRef(null);
-  const tokenCheckInterval = useRef(null);
+  const tokenRefreshTimeout = useRef<null | NodeJS.Timeout>(null);
+  const tokenCheckInterval = useRef<null | NodeJS.Timeout>(null);
   const [tokenRefreshTrigger, setTokenRefreshTrigger] = useState(0);
 
   useEffect(() => {
     (async () => {
       // If token is not empty AND expiresIn is valid
-      if (tokenContext.token && isExpiresInValid(tokenContext.expiresIn)) {
+      if (tokenContext.token && tokenContext.expiresIn && isExpiresInValid(parseFloat(tokenContext.expiresIn))) {
         // console.log("Case 1");
         // Update token and timestamp in local storage
         window.localStorage.setItem("token", tokenContext.token);
         window.localStorage.setItem("expiresIn", tokenContext.expiresIn);
 
-        startUpdateTokenTimer((tokenContext.expiresIn - Date.now()) / 1000);
+        startUpdateTokenTimer((parseFloat(tokenContext.expiresIn) - Date.now()) / 1000);
       } else {
         // console.log("Case 2");
         let [token, expiresIn] = await fetchTokenFromBackend();
@@ -31,7 +31,7 @@ export default function UseToken() {
 
   return tokenContext
 
-  function isExpiresInValid(expiresIn) {
+  function isExpiresInValid(expiresIn: number) {
     if (expiresIn > Date.now()) {
       return true;
     } else {
@@ -45,7 +45,7 @@ export default function UseToken() {
       clearInterval(tokenCheckInterval.current);
     }
     tokenCheckInterval.current = setInterval(() => {
-      if (!isExpiresInValid(tokenContext.expiresIn)) {
+      if (tokenContext.expiresIn && !isExpiresInValid(parseFloat(tokenContext.expiresIn))) {
         setTokenRefreshTrigger((prevCount) => prevCount + 1);
       }
     }, 10000);
@@ -59,10 +59,10 @@ export default function UseToken() {
     return [token, expiresIn];
   }
 
-  function startUpdateTokenTimer(seconds) {
+  function startUpdateTokenTimer(seconds:number) {
     if (tokenRefreshTimeout.current) {
       // console.log("clears previous timeout ");
-      clearTimeout(tokenRefreshTimeout);
+      clearTimeout(tokenRefreshTimeout.current);
     }
     // console.log("timer starts in minutes: ", seconds / 60);
 
