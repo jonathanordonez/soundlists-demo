@@ -1,9 +1,11 @@
 import { useRef } from "react";
-import { useState, useContext, useEffect } from "react";
-import { TokenContext } from "../Components/App";
+import { useState, useEffect } from "react";
 
 export default function UseToken() {
-  const { tokenContext, setTokenContext } = useContext(TokenContext);
+  const [tokenContext, setTokenContext] = useState({
+    token: window.localStorage.getItem("token"),
+    expiresIn: window.localStorage.getItem("expiresIn"),
+  });
   const tokenRefreshTimeout = useRef(null);
   const tokenCheckInterval = useRef(null);
   const [tokenRefreshTrigger, setTokenRefreshTrigger] = useState(0);
@@ -26,6 +28,8 @@ export default function UseToken() {
       startTokenCheckInterval();
     })();
   }, [tokenContext, tokenRefreshTrigger]);
+
+  return tokenContext
 
   function isExpiresInValid(expiresIn) {
     if (expiresIn > Date.now()) {

@@ -6,7 +6,6 @@ import React from "react";
 
 export interface TokenContextType  {
   tokenContext: TokeContextValues | undefined;
-  setTokenContext: React.Dispatch<React.SetStateAction<TokeContextValues | undefined>>;
 };
 
 interface TokeContextValues  
@@ -33,11 +32,7 @@ export const TokenContext = createContext<TokenContextType | undefined>(undefine
 export const UserDetailsContext = createContext<UserDetailsContextType | undefined>(undefined);
 
 function App() {
-  const [tokenContext, setTokenContext] = useState<TokeContextValues | undefined>({
-    token: window.localStorage.getItem("token"),
-    expiresIn: window.localStorage.getItem("expiresIn"),
-  });
-  UseToken()
+  const tokenContext = UseToken();
   const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValues | undefined>({
     username: "",
     profilePicture: "default-profile-pic.jpg",
@@ -62,7 +57,7 @@ function App() {
   }, []);
 
   return (
-    <TokenContext.Provider value={{ tokenContext, setTokenContext }}>
+    <TokenContext.Provider value={{ tokenContext }}>
       <UserDetailsContext.Provider
         value={{ userDetailsContext, setUserDetailsContext }}
       >
