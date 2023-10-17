@@ -3,17 +3,39 @@ import { useState, useEffect } from "react";
 import Post from "./Post/Post";
 import { updateToast } from "../../../Utils";
 
+interface FeedProps {
+  refreshFeedCounterFromMain: number,
+  profilePicture: string | null,
+  setOverlayOnHandlerCopyToSpotify: ()=>void,
+  handleSrc: (src:string)=>void
+}
+
+interface PostValues {
+  collectionId: string;
+  collectionName: string;
+  created_at: string;
+  id: string;
+  playlist_id: string;
+  playlist_name: string;
+  profile_picture: string;
+  track_uris: string;
+  uris: string;
+  username: string;
+}
+
 export default function Feed({
   refreshFeedCounterFromMain,
   profilePicture,
   setOverlayOnHandlerCopyToSpotify,
   handleSrc,
-}) {
-  const [posts, setPosts] = useState([]);
+}:FeedProps) {
+  const [posts, setPosts] = useState<PostValues[]>([]);
   const [atBottomFlag, setAtBottomFlag] = useState(0);
   let postBatchNo = useRef(1);
   const refreshFeedCounterFromMainLocal = useRef(1);
   let fetchPostsOnceAtBottomHandler = fetchPostsOnceAtBottom();
+
+
 
   // Fetches posts from db
   useEffect(() => {
@@ -40,7 +62,6 @@ export default function Feed({
     // Waiting 1 second ensure the window height is calculated properly after the posts are displayed
     if (posts.length > 0) {
       setTimeout(() => {
-        // document.removeEventListener("scroll", detectBottomOnScroll);
         document.addEventListener("scroll", detectBottomOnScroll);
       }, 1000);
     }
@@ -85,7 +106,7 @@ export default function Feed({
   function fetchPostsOnceAtBottom() {
     let counter = 1;
     return function () {
-      if (counter == 1) {
+      if (counter === 1) {
         counter++;
         postBatchNo.current += 1;
         setAtBottomFlag((value) => value + 1);
@@ -93,7 +114,7 @@ export default function Feed({
     };
   }
 
-  async function fetchPosts(searchFilters) {
+  async function fetchPosts(searchFilters:{searchUsername: string, searchTag: string, postsBatchNo: number}) {
     let request = await fetch(
       `${process.env.REACT_APP_PYTHONHOST}/api/get_posts`,
       {
@@ -104,7 +125,7 @@ export default function Feed({
     );
     let json = await request.json();
     if (json.posts.length > 0) {
-      if (postBatchNo.current == 1) {
+      if (postBatchNo.current === 1) {
         setPosts(json.posts);
       } else {
         setPosts((posts) => [...posts, ...json.posts]);
@@ -112,7 +133,7 @@ export default function Feed({
     }
   }
 
-  async function delPostInFeed(postToDelete) {
+  async function delPostInFeed(postToDelete:string) {
     let request = await fetch(
       `${process.env.REACT_APP_PYTHONHOST}/api/delete_post`,
       {
@@ -122,7 +143,7 @@ export default function Feed({
       }
     );
     let json = await request.json();
-    if (json.status == "successful") {
+    if (json.status === "successful") {
       // Delete post in UI
       const updatedPosts = posts.filter((post) => post.id !== postToDelete);
       setPosts(updatedPosts);

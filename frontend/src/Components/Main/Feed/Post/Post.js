@@ -10,7 +10,6 @@ export default function Post({
   profilePicture,
   delPostInFeed,
   setOverlayOnHandlerCopyToSpotify,
-  userSpotifySubscription,
   handleSrc,
 }) {
   const [uriPlaying, setUriPlaying] = useState(null);
