@@ -1,7 +1,12 @@
 import React from "react";
 import UploadProfilePicture from "../Nav/UploadProfilePicture";
 
-export default function Overlay(props) {
+interface OverlayProps {
+  profilePicture: string | null,
+  setOverlayOnHandler: () => void
+}
+
+export default function Overlay(props:OverlayProps) {
   return (
     <>
       <div
@@ -23,20 +28,19 @@ export default function Overlay(props) {
         </div>
         <hr></hr>
         <UploadProfilePicture
-          updateProfilePicture={props.updateProfilePicture}
           profilePicture={props.profilePicture}
         />
-        <button className="signout" onClick={props.signOut}>
+        {/* <button className="signout" onClick={props.signOut}>
           Sign out
-        </button>
+        </button> */}
       </div>
     </>
   );
   function getOverlayContentTop() {
-    return `${visualViewport.pageTop + window.innerHeight / 2}px`;
+    return visualViewport !== null? `${visualViewport.pageTop + window.innerHeight / 2}px`:`${0 + window.innerHeight / 2}px`;
   }
 
   function getOverlayTop() {
-    return `${visualViewport.pageTop}px`;
+    return visualViewport !== null? `${visualViewport.pageTop}px`:'0px' ;
   }
 }
