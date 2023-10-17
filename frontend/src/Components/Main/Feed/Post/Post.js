@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, {useContext } from "react";
 import PostFooter from "./PostFooter/PostFooter";
 import PlaylistItems from "./PlaylistItems/PlaylistItems";
 import PostProfile from "./PostProfile/PostProfile";
@@ -12,9 +11,6 @@ export default function Post({
   setOverlayOnHandlerCopyToSpotify,
   handleSrc,
 }) {
-  const [uriPlaying, setUriPlaying] = useState(null);
-  const [handlePlayPauseFromPlaylist, setHandlePlayPauseFromPlaylist] =
-    useState(0);
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
 
@@ -35,8 +31,6 @@ export default function Post({
         <PlaylistItems
           propsSongs={post.uris}
           postId={post.id}
-          uriPlaying={uriPlaying}
-          handlePlayPauseFromList={handlePlayPauseFromList}
           handleSrc={handleSrc}
         />
         <PostFooter
@@ -50,21 +44,4 @@ export default function Post({
     </>
   );
 
-  function handlePlayPauseFromList() {
-    // Used for listening the play/pause signal from the Tracks.js component
-    // The setHandlePlayPauseFromPlaylist simply adds a counter to re-render the MusicPlayer component and play/pause the song
-    setHandlePlayPauseFromPlaylist((previous) => previous + 1);
-  }
-
-  function shortenPlaylistName(post) {
-    const feedElement = document.getElementsByClassName("feed")[0];
-    const feedWidth = feedElement.clientWidth;
-    if (feedWidth < 400 && post.playlist_name.length > 15) {
-      return `${post.playlist_name.slice(0, 15)}...`;
-    } else {
-      return post.playlist_name.length <= 25
-        ? post.playlist_name
-        : `${post.playlist_name.slice(0, 25)}...`;
-    }
-  }
 }

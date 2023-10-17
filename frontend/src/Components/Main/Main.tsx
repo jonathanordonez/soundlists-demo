@@ -26,7 +26,7 @@ export const PreviewPlayerContext = createContext(
 export default function Main() {
   const [overlayOn, setOverlayOn] = useState(false);
   const [overlayOnCopyToSpotify, setOverlayOnCopyToSpotify] = useState(false);
-  let overlayData = useRef();
+  let overlayData = useRef({});
   const [refreshFeedCounterFromMain, setRefreshFeedCounterFromMain] =
     useState(1);
   const { userDetailsContext } = useContext(UserDetailsContext);
@@ -105,7 +105,8 @@ export default function Main() {
     }
   }
 
-  function setOverlayOnHandlerCopyToSpotify() {
+  function setOverlayOnHandlerCopyToSpotify(data:{ playlistName: string, trackUris: [] }) {
+    overlayData.current = data;
     const body = document.getElementsByTagName("body")[0];
     if (overlayOnCopyToSpotify == false) {
       body.classList.add("overlayBody");

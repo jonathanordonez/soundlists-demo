@@ -6,7 +6,7 @@ import { updateToast } from "../../../Utils";
 interface FeedProps {
   refreshFeedCounterFromMain: number,
   profilePicture: string | null,
-  setOverlayOnHandlerCopyToSpotify: ()=>void,
+  setOverlayOnHandlerCopyToSpotify: (data:{playlistName: string; trackUris: []})=>void,
   handleSrc: (src:string)=>void
 }
 
