@@ -2,8 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Nav(props) {
+interface NavProps {
+  profilePicture: string | null,
+  setOverlayOnHandler: () => void
+}
+
+export default function Nav(props:NavProps) {
   const [profilePicture, setProfilePicture] = useState(props.profilePicture);
+  
   useEffect(() => {
     if (props.profilePicture != profilePicture) {
       setProfilePicture(props.profilePicture);
