@@ -8,12 +8,24 @@ import SharePlaylist from "./SharePlaylist/SharePlaylist";
 import OverlayCopyToSpotify from "./Overlay/OverlayCopyToSpotify";
 import PreviewPlayer from "./PreviewPlayer/PreviewPlayer";
 
-export const PreviewPlayerContext = createContext();
+const previewPlayerDefaultValues = {
+  urls: [],
+  playerState: null,
+  previewUrl: null,
+  postId: null,
+  src: null,  // the track preview source
+}
 
-export default function Main(props) {
+export const PreviewPlayerContext = createContext(
+  {
+  previewPlayerContext: previewPlayerDefaultValues,
+  setPreviewPlayerContext: (newContext:typeof previewPlayerDefaultValues) => {},
+  }
+);
+
+export default function Main() {
   const [overlayOn, setOverlayOn] = useState(false);
   const [overlayOnCopyToSpotify, setOverlayOnCopyToSpotify] = useState(false);
-  let overlayAction = useRef();
   let overlayData = useRef();
   const [refreshFeedCounterFromMain, setRefreshFeedCounterFromMain] =
     useState(1);
@@ -21,21 +33,19 @@ export default function Main(props) {
   const { username, profilePicture } = userDetailsContext;
   const [previewPlayerContext, setPreviewPlayerContext] = useState({
     urls: [],
-    playerState: "",
-    previewUrl: "",
-    postId: "",
-    src: "",
+    playerState: null,
+    previewUrl: null,
+    postId: null,
+    src: null,
   });
-  const [src, setSrc] = useState();
+  const [src, setSrc] = useState('');
 
   return (
     <>
       {overlayOn && (
         <Overlay
           setOverlayOnHandler={setOverlayOnHandler}
-          updateProfilePicture={props.updateProfilePicture}
           profilePicture={profilePicture}
-          signOut={props.signOut}
         />
       )}
       {overlayOnCopyToSpotify && (
@@ -50,15 +60,12 @@ export default function Main(props) {
       >
         <PreviewPlayer
           src={src}
-          previewUrl={previewPlayerContext.previewUrl}
-          playerState={previewPlayerContext.playerState}
         />
       </PreviewPlayerContext.Provider>
 
       <Nav
         setOverlayOnHandler={setOverlayOnHandler}
         profilePicture={profilePicture}
-        updateProfilePicture={props.updateProfilePicture}
       ></Nav>
       <Toast></Toast>
       <div className="container">
@@ -87,11 +94,7 @@ export default function Main(props) {
     </>
   );
 
-  function setOverlayOnHandler(overlayActionPassed, data) {
-    if (overlayActionPassed) {
-      overlayAction.current = overlayActionPassed;
-      overlayData.current = data;
-    }
+  function setOverlayOnHandler() {
     const body = document.getElementsByTagName("body")[0];
     if (overlayOn == false) {
       body.classList.add("overlayBody");
@@ -102,8 +105,7 @@ export default function Main(props) {
     }
   }
 
-  function setOverlayOnHandlerCopyToSpotify(data) {
-    overlayData.current = data;
+  function setOverlayOnHandlerCopyToSpotify() {
     const body = document.getElementsByTagName("body")[0];
     if (overlayOnCopyToSpotify == false) {
       body.classList.add("overlayBody");
@@ -118,7 +120,7 @@ export default function Main(props) {
     setRefreshFeedCounterFromMain((counter) => counter + 1);
   }
 
-  function handleSrc(src) {
+  function handleSrc(src:string) {
     setSrc(src);
   }
 }

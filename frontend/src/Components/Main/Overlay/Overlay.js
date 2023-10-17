@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
 import UploadProfilePicture from "../Nav/UploadProfilePicture";
 
 export default function Overlay(props) {
-  console.log("this asd");
   return (
     <>
       <div

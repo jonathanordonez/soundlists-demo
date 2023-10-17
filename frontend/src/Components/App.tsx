@@ -16,8 +16,8 @@ interface TokeContextValues
 
 
 export interface UserDetailsContextType {
-  userDetailsContext: UserDetailsValues | undefined;
-  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValues | undefined>>
+  userDetailsContext: UserDetailsValues;
+  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValues>>
 }
 
 interface UserDetailsValues  
@@ -29,11 +29,17 @@ interface UserDetailsValues
 
 
 export const TokenContext = createContext<TokenContextType | undefined>(undefined);
-export const UserDetailsContext = createContext<UserDetailsContextType | undefined>(undefined);
+export const UserDetailsContext = createContext<UserDetailsContextType>({userDetailsContext: {
+  username: null,
+  profilePicture: null,
+  spotifyUserId: null,
+},
+setUserDetailsContext: () => {},
+});
 
 function App() {
   const tokenContext = UseToken();
-  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValues | undefined>({
+  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValues>({
     username: "",
     profilePicture: "default-profile-pic.jpg",
     spotifyUserId: "",
