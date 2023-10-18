@@ -4,10 +4,25 @@ import "./PlaylistItems.css";
 import { TokenContext } from "../../../../App";
 import TrackPreviewPlayer from "./Track/TrackPreviewPlayer";
 
-export default function PlaylistItems({ propsSongs, postId, handleSrc }) {
+interface PlaylistItemsType {
+  propsSongs: string[]
+  postId: string
+  handleSrc: (src:string)=>void
+}
+
+interface SongType {
+  id: string
+  album: { images: { url: string }[] };
+  name: string
+  artists: string | string[]
+  preview_url: string
+  
+}
+
+export default function PlaylistItems({ propsSongs, postId, handleSrc }:PlaylistItemsType) {
   const [songs, setSongs] = useState([]);
   const tokenContext = useContext(TokenContext);
-  const [previewUrls, setPreviewUrls] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState(['']);
 
   // Fetches the songs in the Playlist (images, uri, artists)
   useEffect(() => {
@@ -36,14 +51,14 @@ export default function PlaylistItems({ propsSongs, postId, handleSrc }) {
 
   useEffect(() => {
     if (songs.length > 0) {
-      const urls = songs.map((song) => song.preview_url);
+      const urls = songs.map((song:SongType) => song.preview_url);
       setPreviewUrls(urls);
     }
   }, [songs]);
 
   return (
     <div className="postTracks">
-      {songs.map((song) => (
+      {songs.map((song:SongType) => (
         <TrackPreviewPlayer
           handleSrc={handleSrc}
           postId={postId}

@@ -18,8 +18,8 @@ export interface PostValues {
   playlist_id: string;
   playlist_name: string;
   profile_picture: string;
-  track_uris: string;
-  uris: string;
+  track_uris: string[];
+  uris: string[];
   username: string;
 }
 
