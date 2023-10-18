@@ -3,6 +3,15 @@ import PostFooter from "./PostFooter/PostFooter";
 import PlaylistItems from "./PlaylistItems/PlaylistItems";
 import PostProfile from "./PostProfile/PostProfile";
 import { UserDetailsContext } from "../../../App";
+import { PostValues } from "../Feed";
+
+interface PostType{
+  post: PostValues,
+  profilePicture: string,
+  delPostInFeed: (postToDelete:string)=>void,
+  setOverlayOnHandlerCopyToSpotify: (data:{ playlistName: string, trackUris: string [] }|null)=>void,
+  handleSrc: (src:string)=>void,
+}
 
 export default function Post({
   post,
@@ -10,7 +19,7 @@ export default function Post({
   delPostInFeed,
   setOverlayOnHandlerCopyToSpotify,
   handleSrc,
-}) {
+}:PostType) {
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
 
@@ -20,7 +29,7 @@ export default function Post({
         className="post"
         key={post.id}
         id={post.id}
-        collectionid={post.collectionId}
+        data-collectionId={post.collectionId}
       >
         <div className="postHeaderFree">
           <PostProfile post={post} profilePicture={profilePicture} />

@@ -5,12 +5,12 @@ import { updateToast } from "../../../Utils";
 
 interface FeedProps {
   refreshFeedCounterFromMain: number,
-  profilePicture: string | null,
-  setOverlayOnHandlerCopyToSpotify: (data:{playlistName: string; trackUris: []})=>void,
+  profilePicture: string,
+  setOverlayOnHandlerCopyToSpotify: (data:{playlistName: string; trackUris: string []}|null)=>void,
   handleSrc: (src:string)=>void
 }
 
-interface PostValues {
+export interface PostValues {
   collectionId: string;
   collectionName: string;
   created_at: string;

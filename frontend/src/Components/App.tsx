@@ -18,7 +18,7 @@ export interface UserDetailsContextType {
 interface UserDetailsValues  
   {
     username: string | null,
-    profilePicture: string | null,
+    profilePicture: string,
     spotifyUserId:string | null
   }
 
@@ -26,7 +26,7 @@ interface UserDetailsValues
 export const TokenContext = createContext<TokenContextType>({token: '', expiresIn: ''});
 export const UserDetailsContext = createContext<UserDetailsContextType>({userDetailsContext: {
   username: null,
-  profilePicture: null,
+  profilePicture: '',
   spotifyUserId: null,
 },
 setUserDetailsContext: () => {},
