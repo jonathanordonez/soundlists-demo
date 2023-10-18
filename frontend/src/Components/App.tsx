@@ -5,14 +5,9 @@ import UseToken from "../Hooks/UseToken";
 import React from "react";
 
 export interface TokenContextType  {
-  tokenContext: TokeContextValues | undefined;
+  token: string | null;
+  expiresIn: string | null;
 };
-
-interface TokeContextValues  
-  {
-    token: string | null;
-    expiresIn: string | null;
-  }
 
 
 export interface UserDetailsContextType {
@@ -28,7 +23,7 @@ interface UserDetailsValues
   }
 
 
-export const TokenContext = createContext<TokenContextType | undefined>(undefined);
+export const TokenContext = createContext<TokenContextType>({token: '', expiresIn: ''});
 export const UserDetailsContext = createContext<UserDetailsContextType>({userDetailsContext: {
   username: null,
   profilePicture: null,
@@ -63,7 +58,7 @@ function App() {
   }, []);
 
   return (
-    <TokenContext.Provider value={{ tokenContext }}>
+    <TokenContext.Provider value={{ ...tokenContext }}>
       <UserDetailsContext.Provider
         value={{ userDetailsContext, setUserDetailsContext }}
       >

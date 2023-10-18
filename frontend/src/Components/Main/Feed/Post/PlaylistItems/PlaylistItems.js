@@ -6,7 +6,7 @@ import TrackPreviewPlayer from "./Track/TrackPreviewPlayer";
 
 export default function PlaylistItems({ propsSongs, postId, handleSrc }) {
   const [songs, setSongs] = useState([]);
-  const { tokenContext } = useContext(TokenContext);
+  const tokenContext = useContext(TokenContext);
   const [previewUrls, setPreviewUrls] = useState([]);
 
   // Fetches the songs in the Playlist (images, uri, artists)
