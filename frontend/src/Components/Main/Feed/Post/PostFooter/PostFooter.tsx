@@ -1,17 +1,24 @@
 import React from "react";
 import "./PostFooter.css";
-import { updateToast, getTrackUrisFromPost } from "../../../../../Utils";
+import {getTrackUrisFromPost } from "../../../../../Utils";
+
+interface PostFooterType {
+  username: string | null,
+  postUsername: string | null,
+  delPostInFeed: (postToDelete:string)=>void,
+  setOverlayOnHandlerCopyToSpotify: (data:{ playlistName: string, trackUris: string [] }|null)=>void, 
+}
 
 export default function PostFooter({
   username,
   postUsername,
   delPostInFeed,
   setOverlayOnHandlerCopyToSpotify,
-}) {
+}:PostFooterType) {
   return (
     <>
       <div className="postFooter">
-        {username != postUsername && (
+        {username !== postUsername && (
           <>
             <div className="postOption">
               <svg viewBox="0 0 48 48" version="1.1" onClick={copyToSpotify}>
@@ -39,7 +46,7 @@ export default function PostFooter({
             </div>
           </>
         )}
-        {username == postUsername && (
+        {username === postUsername && (
           <>
             <div className="postOption">
               <svg viewBox="0 -0.5 21 21" version="1.1" onClick={deletePost}>
@@ -72,14 +79,27 @@ export default function PostFooter({
       </div>
     </>
   );
-  function deletePost(e) {
-    const postToDelete = e.target.parentElement.parentElement.parentElement.id;
-    delPostInFeed(postToDelete);
+  function deletePost(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
+
+    const postId = (e.target as HTMLElement)?.parentElement?.parentElement?.parentElement?.id;
+
+    if (!postId) {
+      return;
+    }
+
+  delPostInFeed(postId);
   }
 
-  function copyToSpotify(e) {
-    const post = e.target.parentElement.parentElement.parentElement;
-    const playlistName = post.querySelector(".postTitle").textContent;
+  function copyToSpotify(e:React.MouseEvent<SVGSVGElement, MouseEvent>) {
+    const post = (e.target as HTMLElement)?.parentElement?.parentElement?.parentElement;
+    if(!post){
+      return
+    }
+    const playlistName = post.querySelector(".postTitle")?.textContent;
+    if(!playlistName){
+      console.error('Copy to Spotify failed: playlistName is empty')
+      return
+    }
     const trackUris = getTrackUrisFromPost(post.id);
     const data = { playlistName: playlistName, trackUris: trackUris };
     setOverlayOnHandlerCopyToSpotify(data);
