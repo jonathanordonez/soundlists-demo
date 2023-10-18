@@ -9,17 +9,23 @@ import OverlayCopyToSpotify from "./Overlay/OverlayCopyToSpotify";
 import PreviewPlayer from "./PreviewPlayer/PreviewPlayer";
 
 const previewPlayerDefaultValues = {
-  urls: [],
-  playerState: null,
-  previewUrl: null,
-  postId: null,
-  src: null,  // the track preview source
+  playerState: '',
+  previewUrl: '',
+  postId: '',
+  playingTrack: '',
+}
+
+interface PreviewPlayerContextType {
+  playerState: string,
+  previewUrl: string,
+  postId: string,
+  playingTrack: string,
 }
 
 export const PreviewPlayerContext = createContext(
   {
   previewPlayerContext: previewPlayerDefaultValues,
-  setPreviewPlayerContext: (newContext:typeof previewPlayerDefaultValues) => {},
+  setPreviewPlayerContext: (newContext:PreviewPlayerContextType) => {},
   }
 );
 
@@ -31,13 +37,7 @@ export default function Main() {
     useState(1);
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username, profilePicture } = userDetailsContext;
-  const [previewPlayerContext, setPreviewPlayerContext] = useState({
-    urls: [],
-    playerState: null,
-    previewUrl: null,
-    postId: null,
-    src: null,
-  });
+  const [previewPlayerContext, setPreviewPlayerContext] = useState(previewPlayerDefaultValues);
   const [src, setSrc] = useState('');
 
   return (
@@ -86,7 +86,7 @@ export default function Main() {
               setOverlayOnHandlerCopyToSpotify={
                 setOverlayOnHandlerCopyToSpotify
               }
-              handleSrc={handleSrc}
+              setPreviewUrl={setPreviewUrl}
             />
           </PreviewPlayerContext.Provider>
         </div>
@@ -123,7 +123,7 @@ export default function Main() {
     setRefreshFeedCounterFromMain((counter) => counter + 1);
   }
 
-  function handleSrc(src:string) {
-    setSrc(src);
+  function setPreviewUrl(preview_url:string) {
+    setSrc(preview_url);
   }
 }

@@ -1,8 +1,18 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Track.css";
 import SVGPlay from "./SVGPlay";
 import SVGPause from "./SVGPause";
 import { PreviewPlayerContext } from "../../../../Main";
+
+interface TrackPreviewPlayerType {
+  uri: string
+  postId: string
+  albumCover: string
+  songName: string
+  artist: { name: string; }[]
+  previewUrl: string
+  setPreviewUrl: (src:string)=>void
+}
 
 export default function TrackPreviewPlayer({
   uri,
@@ -11,9 +21,8 @@ export default function TrackPreviewPlayer({
   songName,
   artist,
   previewUrl,
-  handleSrc,
-  previewUrls,
-}) {
+  setPreviewUrl,
+}:TrackPreviewPlayerType) {
   const { previewPlayerContext, setPreviewPlayerContext } =
     useContext(PreviewPlayerContext);
   const [trackStyle, setTrackStyle] = useState("");
@@ -27,9 +36,9 @@ export default function TrackPreviewPlayer({
 
   useEffect(() => {
     if (
-      previewPlayerContext.postId == postId &&
-      previewPlayerContext.playerState == "play" &&
-      previewUrl == previewPlayerContext.previewUrl
+      previewPlayerContext.postId === postId &&
+      previewPlayerContext.playerState === "play" &&
+      previewUrl === previewPlayerContext.previewUrl
     ) {
       setTrackStyle("active");
     } else {
@@ -37,7 +46,7 @@ export default function TrackPreviewPlayer({
     }
   }, [previewPlayerContext]);
 
-  function getArtists(artists) {
+  function getArtists(artists:{name:string}[]) {
     if (artists !== undefined && artists.length > 0) {
       let newArtist = "";
       for (let index in artists) {
@@ -54,7 +63,7 @@ export default function TrackPreviewPlayer({
     }
   }
 
-  function getSongName(name) {
+  function getSongName(name:string) {
     if (window.screen.width < 400) {
       if (name.length > 25) {
         const newSongName = `${name.slice(0, 26)}...`;
@@ -66,15 +75,14 @@ export default function TrackPreviewPlayer({
     return name;
   }
 
-  function playOrPauseTrack(e) {
-    handleSrc(previewUrl);
-    if (trackStyle == "active") {
+  function playOrPauseTrack() {
+    setPreviewUrl(previewUrl);
+    if (trackStyle === "active") {
       setPreviewPlayerContext({
         playerState: "pause",
         postId: postId,
         playingTrack: uri,
         previewUrl: previewUrl,
-        previewUrls: previewUrls,
       });
     } else {
       setPreviewPlayerContext({
@@ -82,7 +90,6 @@ export default function TrackPreviewPlayer({
         postId: postId,
         playingTrack: uri,
         previewUrl: previewUrl,
-        previewUrls: previewUrls,
       });
     }
   }
@@ -92,7 +99,7 @@ export default function TrackPreviewPlayer({
       key={uri}
       className={`track ${trackStyle}${isDisabled}`}
       onClick={playOrPauseTrack}
-      uri={uri}
+      data-uri={uri}
     >
       <div className="imageContainer">
         <img src={albumCover} alt="Album Cover" />

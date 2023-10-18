@@ -7,7 +7,7 @@ interface FeedProps {
   refreshFeedCounterFromMain: number,
   profilePicture: string,
   setOverlayOnHandlerCopyToSpotify: (data:{playlistName: string; trackUris: string []}|null)=>void,
-  handleSrc: (src:string)=>void
+  setPreviewUrl: (src:string)=>void
 }
 
 export interface PostValues {
@@ -27,7 +27,7 @@ export default function Feed({
   refreshFeedCounterFromMain,
   profilePicture,
   setOverlayOnHandlerCopyToSpotify,
-  handleSrc,
+  setPreviewUrl,
 }:FeedProps) {
   const [posts, setPosts] = useState<PostValues[]>([]);
   const [atBottomFlag, setAtBottomFlag] = useState(0);
@@ -85,7 +85,7 @@ export default function Feed({
                 setOverlayOnHandlerCopyToSpotify={
                   setOverlayOnHandlerCopyToSpotify
                 }
-                handleSrc={handleSrc}
+                setPreviewUrl={setPreviewUrl}
               />
             ))}
         </ul>

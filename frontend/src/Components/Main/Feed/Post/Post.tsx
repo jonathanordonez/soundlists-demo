@@ -10,7 +10,7 @@ interface PostType{
   profilePicture: string,
   delPostInFeed: (postToDelete:string)=>void,
   setOverlayOnHandlerCopyToSpotify: (data:{ playlistName: string, trackUris: string [] }|null)=>void,
-  handleSrc: (src:string)=>void,
+  setPreviewUrl: (src:string)=>void,
 }
 
 export default function Post({
@@ -18,7 +18,7 @@ export default function Post({
   profilePicture,
   delPostInFeed,
   setOverlayOnHandlerCopyToSpotify,
-  handleSrc,
+  setPreviewUrl,
 }:PostType) {
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
@@ -29,7 +29,7 @@ export default function Post({
         className="post"
         key={post.id}
         id={post.id}
-        data-collectionId={post.collectionId}
+        data-collectionid={post.collectionId}
       >
         <div className="postHeaderFree">
           <PostProfile post={post} profilePicture={profilePicture} />
@@ -40,7 +40,7 @@ export default function Post({
         <PlaylistItems
           propsSongs={post.uris}
           postId={post.id}
-          handleSrc={handleSrc}
+          setPreviewUrl={setPreviewUrl}
         />
         <PostFooter
           username={username}
