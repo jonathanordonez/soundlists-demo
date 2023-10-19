@@ -3,10 +3,10 @@ import PostFooter from "./PostFooter/PostFooter";
 import PlaylistItems from "./PlaylistItems/PlaylistItems";
 import PostProfile from "./PostProfile/PostProfile";
 import { UserDetailsContext } from "../../../App";
-import { PostValues } from "../Feed";
+import { PostValuesType } from "../Feed";
 
 interface PostType{
-  post: PostValues,
+  post: PostValuesType,
   profilePicture: string,
   delPostInFeed: (postToDelete:string)=>void,
   setOverlayOnHandlerCopyToSpotify: (data:{ playlistName: string, trackUris: string [] }|null)=>void,

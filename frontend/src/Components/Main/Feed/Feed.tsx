@@ -10,7 +10,7 @@ interface FeedProps {
   setPreviewUrl: (src:string)=>void
 }
 
-export interface PostValues {
+export interface PostValuesType {
   collectionId: string;
   collectionName: string;
   created_at: string;
@@ -29,7 +29,7 @@ export default function Feed({
   setOverlayOnHandlerCopyToSpotify,
   setPreviewUrl,
 }:FeedProps) {
-  const [posts, setPosts] = useState<PostValues[]>([]);
+  const [posts, setPosts] = useState<PostValuesType[]>([]);
   const [atBottomFlag, setAtBottomFlag] = useState(0);
   let postBatchNo = useRef(1);
   const refreshFeedCounterFromMainLocal = useRef(1);

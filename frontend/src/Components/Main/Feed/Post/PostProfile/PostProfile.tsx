@@ -1,6 +1,12 @@
 import React from "react";
+import { PostValuesType } from "../../Feed";
 
-export default function PostProfile({ post, profilePicture }) {
+interface PostProfileType {
+  post: PostValuesType
+  profilePicture: string
+}
+
+export default function PostProfile({ post, profilePicture }:PostProfileType) {
   return (
     <div className="postProfile">
       <div className="profilePicContainer">
@@ -18,10 +24,10 @@ export default function PostProfile({ post, profilePicture }) {
       </div>
     </div>
   );
-  function postProfilePicture(post) {
+  function postProfilePicture(post:PostValuesType) {
     if (
       document.getElementById("username") &&
-      document.getElementById("username").textContent == post.username
+      document.getElementById("username")?.textContent === post.username
     ) {
       return `https://soundlists-profpics.s3.amazonaws.com/${profilePicture}`;
     } else {
