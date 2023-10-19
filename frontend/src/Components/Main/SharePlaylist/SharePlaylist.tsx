@@ -1,10 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Playlists from "./Playlists";
 import { updateToast, getPlaylistItems } from "../../../Utils";
+import { TokenContext } from "../../App";
 
 export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:()=>void}) {
   const [playlistSelectedId, setPlaylistSelectedId] = useState("");
+  const tokenContext = useContext(TokenContext)
 
   return (
     <div className="feed">
@@ -36,15 +38,18 @@ export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:(
       return;
     }
 
+    const result = await getPlaylistItems(
+      tokenContext.token,
+      playlistSelectedId
+    );
+    
     const [
       trackUris,
       uris,
       trackUrisNoAvailableMarkets,
-      urisNoAvailableMarkets,
-    ] = await getPlaylistItems(
-      localStorage.getItem("token"),
-      playlistSelectedId
-    );
+      urisNoAvailableMarkets
+    ] = result || [[], [], [], []];
+
 
     if (uris.length > 20) {
       const newToast = updateToast();

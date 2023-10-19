@@ -11,30 +11,30 @@ export interface TokenContextType  {
 
 
 export interface UserDetailsContextType {
-  userDetailsContext: UserDetailsValues;
-  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValues>>
+  userDetailsContext: UserDetailsValuesType;
+  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValuesType>>
 }
 
-interface UserDetailsValues  
+interface UserDetailsValuesType  
   {
     username: string | null,
     profilePicture: string,
-    spotifyUserId:string | null
+    spotifyUserId:string,
   }
 
 
 export const TokenContext = createContext<TokenContextType>({token: '', expiresIn: ''});
 export const UserDetailsContext = createContext<UserDetailsContextType>({userDetailsContext: {
-  username: null,
+  username: '',
   profilePicture: '',
-  spotifyUserId: null,
+  spotifyUserId: '',
 },
 setUserDetailsContext: () => {},
 });
 
 function App() {
   const tokenContext = UseToken();
-  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValues>({
+  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValuesType>({
     username: "",
     profilePicture: "default-profile-pic.jpg",
     spotifyUserId: "",
@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const request = await getUserDetails();
-      if (request.status == "successful") {
+      if (request.status === "successful") {
         if (request.has_data) {
           setUserDetailsContext({
             username: request.username,

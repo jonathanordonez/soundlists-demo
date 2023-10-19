@@ -44,7 +44,7 @@ export default function TrackPreviewPlayer({
     } else {
       setTrackStyle("");
     }
-  }, [previewPlayerContext]);
+  }, [previewPlayerContext, postId, previewUrl]);
 
   function getArtists(artists:{name:string}[]) {
     if (artists !== undefined && artists.length > 0) {

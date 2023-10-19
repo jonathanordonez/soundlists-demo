@@ -82,6 +82,8 @@ export default function OverlayCopyToSpotify({
       return;
     }
 
+    console.log('over ', overlayData)
+
     const addSongs = await addSongsToPlaylist(
       newPlaylist.id,
       overlayData.trackUris,

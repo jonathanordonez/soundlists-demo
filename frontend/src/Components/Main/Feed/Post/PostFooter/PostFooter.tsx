@@ -101,7 +101,14 @@ export default function PostFooter({
       return
     }
     const trackUris = getTrackUrisFromPost(post.id);
+    if(trackUris === undefined || trackUris.length === 0) {
+      console.error('No tracks to add to playlist')
+      return
+    }
+
+    
     const data = { playlistName: playlistName, trackUris: trackUris };
+    console.log('this data: ', data)
     setOverlayOnHandlerCopyToSpotify(data);
   }
 }

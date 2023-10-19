@@ -1,5 +1,6 @@
 import React from "react";
 import UploadProfilePicture from "../Nav/UploadProfilePicture";
+import { getOverlayContentTop, getOverlayTop } from "../../../Utils";
 
 interface OverlayProps {
   profilePicture: string | null,
@@ -36,11 +37,5 @@ export default function Overlay(props:OverlayProps) {
       </div>
     </>
   );
-  function getOverlayContentTop() {
-    return visualViewport !== null? `${visualViewport.pageTop + window.innerHeight / 2}px`:`${0 + window.innerHeight / 2}px`;
-  }
 
-  function getOverlayTop() {
-    return visualViewport !== null? `${visualViewport.pageTop}px`:'0px' ;
-  }
 }
