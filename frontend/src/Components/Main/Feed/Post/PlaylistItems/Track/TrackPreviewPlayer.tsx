@@ -11,7 +11,7 @@ interface TrackPreviewPlayerType {
   songName: string
   artist: { name: string; }[]
   previewUrl: string
-  setPreviewUrl: (src:string)=>void
+  handleSetPreviewUrl: (src:string)=>void
 }
 
 export default function TrackPreviewPlayer({
@@ -21,7 +21,7 @@ export default function TrackPreviewPlayer({
   songName,
   artist,
   previewUrl,
-  setPreviewUrl,
+  handleSetPreviewUrl,
 }:TrackPreviewPlayerType) {
   const { previewPlayerContext, setPreviewPlayerContext } =
     useContext(PreviewPlayerContext);
@@ -76,7 +76,7 @@ export default function TrackPreviewPlayer({
   }
 
   function playOrPauseTrack() {
-    setPreviewUrl(previewUrl);
+    handleSetPreviewUrl(previewUrl);
     if (trackStyle === "active") {
       setPreviewPlayerContext({
         playerState: "pause",

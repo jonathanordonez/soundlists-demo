@@ -7,7 +7,7 @@ import TrackPreviewPlayer from "./Track/TrackPreviewPlayer";
 interface PlaylistItemsType {
   propsSongs: string[]
   postId: string
-  setPreviewUrl: (src:string)=>void
+  handleSetPreviewUrl: (src:string)=>void
 }
 
 interface SongType {
@@ -18,7 +18,7 @@ interface SongType {
   preview_url: string
 }
 
-export default function PlaylistItems({ propsSongs, postId, setPreviewUrl }:PlaylistItemsType) {
+export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl }:PlaylistItemsType) {
   const [songs, setSongs] = useState([]);
   const tokenContext = useContext(TokenContext);
 
@@ -51,7 +51,7 @@ export default function PlaylistItems({ propsSongs, postId, setPreviewUrl }:Play
     <div className="postTracks">
       {songs.map((song:SongType) => (
         <TrackPreviewPlayer
-          setPreviewUrl={setPreviewUrl}
+          handleSetPreviewUrl={handleSetPreviewUrl}
           postId={postId}
           key={song.id}
           albumCover={song.album.images[2].url}

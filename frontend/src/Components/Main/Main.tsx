@@ -38,7 +38,7 @@ export default function Main() {
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username, profilePicture } = userDetailsContext;
   const [previewPlayerContext, setPreviewPlayerContext] = useState(previewPlayerDefaultValues);
-  const [src, setSrc] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function Main() {
         value={{ previewPlayerContext, setPreviewPlayerContext }}
       >
         <PreviewPlayer
-          src={src}
+          previewUrl={previewUrl}
         />
       </PreviewPlayerContext.Provider>
 
@@ -86,7 +86,7 @@ export default function Main() {
               setOverlayOnHandlerCopyToSpotify={
                 setOverlayOnHandlerCopyToSpotify
               }
-              setPreviewUrl={setPreviewUrl}
+              handleSetPreviewUrl={handleSetPreviewUrl}
             />
           </PreviewPlayerContext.Provider>
         </div>
@@ -123,7 +123,7 @@ export default function Main() {
     setRefreshFeedCounterFromMain((counter) => counter + 1);
   }
 
-  function setPreviewUrl(preview_url:string) {
-    setSrc(preview_url);
+  function handleSetPreviewUrl(preview_url:string) {
+    setPreviewUrl(preview_url);
   }
 }
