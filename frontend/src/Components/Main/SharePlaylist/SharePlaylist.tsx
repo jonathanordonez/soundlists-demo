@@ -3,7 +3,7 @@ import { useState } from "react";
 import Playlists from "./Playlists";
 import { updateToast, getPlaylistItems } from "../../../Utils";
 
-export default function SharePlaylist({ handleRefreshFeed }) {
+export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:()=>void}) {
   const [playlistSelectedId, setPlaylistSelectedId] = useState("");
 
   return (
@@ -19,13 +19,17 @@ export default function SharePlaylist({ handleRefreshFeed }) {
     </div>
   );
 
-  async function sharePlaylist(e) {
-    const playlistSelected = document.querySelector(".playlistSelector");
+  async function sharePlaylist() {
+    const playlistSelected = document.querySelector(".playlistSelector") as HTMLSelectElement;
+    if(!playlistSelected){
+      console.error('Playlist selected is null')
+      return
+    }
     const playlistName = playlistSelected.value;
 
     if (
       !playlistSelected.value ||
-      playlistSelected.options.selectedIndex == 0
+      playlistSelected.options.selectedIndex === 0
     ) {
       const newToast = updateToast();
       newToast("Select a playlist...");
@@ -73,7 +77,7 @@ export default function SharePlaylist({ handleRefreshFeed }) {
     );
     let json = await request.json();
 
-    if (json.Status == "Successful") {
+    if (json.Status === "Successful") {
       let newToast = updateToast();
       newToast("Playlist added!");
     } else {
@@ -81,12 +85,18 @@ export default function SharePlaylist({ handleRefreshFeed }) {
     }
 
     // Restoring default option
-    document.querySelector(".playlistSelector").options.selectedIndex = 0;
-
+    const playlistSelector = document.querySelector(".playlistSelector") as HTMLSelectElement
+    if(!playlistSelector) {
+      return
+    }
+    const options = playlistSelector.options;
+    if (options) {
+      options.selectedIndex = 0;
+    }
     handleRefreshFeed();
   }
 
-  function getSelectedPlaylistId(e) {
-    setPlaylistSelectedId(e.target.selectedOptions[0].id);
+  function getSelectedPlaylistId(e:React.ChangeEvent<HTMLSelectElement>) {
+    setPlaylistSelectedId((e.target as HTMLSelectElement).selectedOptions[0].id);
   }
 }

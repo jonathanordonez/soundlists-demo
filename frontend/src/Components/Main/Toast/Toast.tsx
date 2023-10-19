@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function Toast() {
   return (
@@ -13,10 +13,16 @@ export default function Toast() {
     </>
   );
 
-  function closeToast(e) {
-    const toast = e.target.parentElement;
+  function closeToast(e:React.MouseEvent<HTMLDivElement>) {
+    const toast = (e.target as HTMLElement).parentElement;
+    if(!toast){
+      console.error('Toast parent element is empty')
+      return
+    }
     if (Array.from(toast.classList).includes("show")) {
       toast.classList.remove("show");
     }
   }
 }
+
+

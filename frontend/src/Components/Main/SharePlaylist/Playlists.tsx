@@ -3,9 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import { TokenContext } from "../../App";
 import { UserDetailsContext } from "../../App";
 
-export default function Playlists(props) {
-  const [userPlaylists, setUserPlaylists] = useState([]);
-  const { tokenContext } = useContext(TokenContext);
+export default function Playlists({getSelectedPlaylistId}:{getSelectedPlaylistId:(e:React.ChangeEvent<HTMLSelectElement>)=>void}) {
+  const [userPlaylists, setUserPlaylists] = useState([{id:'', name:''}]);
+  const tokenContext = useContext(TokenContext);
   const { userDetailsContext } = useContext(UserDetailsContext);
   useEffect(() => {
     if (!userDetailsContext.spotifyUserId || !tokenContext) {
@@ -16,7 +16,7 @@ export default function Playlists(props) {
   }, [tokenContext, userDetailsContext]);
 
   return (
-    <select className="playlistSelector" onChange={props.getSelectedPlaylistId}>
+    <select className="playlistSelector" onChange={getSelectedPlaylistId}>
       <option className="playlistSelectorTemp">Select a playlist</option>
       {userPlaylists.map((playlist) => (
         <option key={playlist.id} id={playlist.id}>
@@ -29,7 +29,7 @@ export default function Playlists(props) {
   async function callFetchUserPlaylists() {
     function fetchUserPlaylists() {
       let offset = 0;
-      let playlists = [];
+      let playlists = [{id:'',name:''}];
       let fetchRepeat = 1;
       let ranNo = 1;
       return async function () {
