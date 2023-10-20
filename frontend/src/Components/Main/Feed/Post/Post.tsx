@@ -1,4 +1,4 @@
-import React, {useContext } from "react";
+import React, {useContext, useState } from "react";
 import PostFooter from "./PostFooter/PostFooter";
 import PlaylistItems from "./PlaylistItems/PlaylistItems";
 import PostProfile from "./PostProfile/PostProfile";
@@ -22,6 +22,7 @@ export default function Post({
 }:PostType) {
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
+  const [isPlaylistItemsLoaded, setIsPlaylistItemsLoaded] = useState(false)
 
   return (
     <>
@@ -41,6 +42,8 @@ export default function Post({
           propsSongs={post.uris}
           postId={post.id}
           handleSetPreviewUrl={handleSetPreviewUrl}
+          isPlaylistItemsLoaded={isPlaylistItemsLoaded}
+          setIsPlaylistItemsLoaded={setIsPlaylistItemsLoaded}
         />
         <PostFooter
           username={username}

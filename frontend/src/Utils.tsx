@@ -266,6 +266,14 @@ export function getOverlayContentTop() {
   return visualViewport !== null? `${visualViewport.pageTop + window.innerHeight / 2}px`:`${0 + window.innerHeight / 2}px`;
 }
 
+export function isExpiresInValid(expiresIn: number) {
+  if (expiresIn > Date.now()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export function getOverlayTop() {
   return visualViewport !== null? `${visualViewport.pageTop}px`:'0px' ;
 }

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useState, useEffect } from "react";
+import { isExpiresInValid } from "../Utils";
 
 export default function UseToken() {
   const [tokenContext, setTokenContext] = useState({
@@ -30,14 +31,6 @@ export default function UseToken() {
   }, [tokenContext, tokenRefreshTrigger]);
 
   return tokenContext
-
-  function isExpiresInValid(expiresIn: number) {
-    if (expiresIn > Date.now()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   function startTokenCheckInterval() {
     // Checks every 10 seconds if the tokenContext.expiresIn is valid. If not, it triggers a refresh of the token
