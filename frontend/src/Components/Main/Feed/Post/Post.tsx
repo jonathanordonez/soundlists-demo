@@ -22,7 +22,7 @@ export default function Post({
 }:PostType) {
   const { userDetailsContext } = useContext(UserDetailsContext);
   const { username } = userDetailsContext;
-  const [isPlaylistItemsLoaded, setIsPlaylistItemsLoaded] = useState(false)
+  const [isPlaylistItemsFetched, setisPlaylistItemsFetched] = useState(false)
 
   return (
     <>
@@ -42,8 +42,8 @@ export default function Post({
           propsSongs={post.uris}
           postId={post.id}
           handleSetPreviewUrl={handleSetPreviewUrl}
-          isPlaylistItemsLoaded={isPlaylistItemsLoaded}
-          setIsPlaylistItemsLoaded={setIsPlaylistItemsLoaded}
+          isPlaylistItemsFetched={isPlaylistItemsFetched}
+          setisPlaylistItemsFetched={setisPlaylistItemsFetched}
         />
         <PostFooter
           username={username}

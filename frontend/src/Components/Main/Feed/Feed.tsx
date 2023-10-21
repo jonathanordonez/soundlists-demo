@@ -148,7 +148,7 @@ export default function Feed({
       const updatedPosts = posts.filter((post) => post.id !== postToDelete);
       setPosts(updatedPosts);
       const newToast = updateToast();
-      newToast("Post deleted successfully");
+      newToast("Post deleted");
     }
   }
 }

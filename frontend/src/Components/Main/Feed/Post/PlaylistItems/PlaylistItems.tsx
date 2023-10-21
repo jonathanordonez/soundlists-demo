@@ -9,8 +9,8 @@ interface PlaylistItemsType {
   propsSongs: string[]
   postId: string
   handleSetPreviewUrl: (src:string)=>void
-  isPlaylistItemsLoaded: boolean
-  setIsPlaylistItemsLoaded: React.Dispatch<React.SetStateAction<boolean>>
+  isPlaylistItemsFetched: boolean
+  setisPlaylistItemsFetched: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface SongType {
@@ -21,19 +21,14 @@ interface SongType {
   preview_url: string
 }
 
-export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl, isPlaylistItemsLoaded, setIsPlaylistItemsLoaded }:PlaylistItemsType) {
+export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl, isPlaylistItemsFetched, setisPlaylistItemsFetched }:PlaylistItemsType) {
   const [songs, setSongs] = useState([]);
   const tokenContext = useContext(TokenContext);
 
   // Fetches the songs in the Playlist (images, uri, artists)
   useEffect(() => {
-    if(isPlaylistItemsLoaded) {
-      console.log('playlists items have loaded already',)
-      return
-    }
 
-    console.log('Loading playlist items ',)
-    if (propsSongs.length > 0 && tokenContext.token && tokenContext.expiresIn && isExpiresInValid(parseFloat(tokenContext.expiresIn))) {
+    if (propsSongs.length > 0 && tokenContext.token && tokenContext.expiresIn && isExpiresInValid(parseFloat(tokenContext.expiresIn)) && !isPlaylistItemsFetched) {
       const fetchSongs = async () => {
         try {
           const response = await axios.get(
@@ -46,7 +41,7 @@ export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl,
           );
 
           setSongs(response.data.tracks);
-          setIsPlaylistItemsLoaded(true);
+          setisPlaylistItemsFetched(true);
         } catch (error) {
           console.error("Error fetching songs:", error);
         }
@@ -55,9 +50,9 @@ export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl,
       fetchSongs();
     }
     else{
-      console.log('skip ',)
+      return
     }
-  }, [propsSongs, tokenContext.token, tokenContext.expiresIn, isPlaylistItemsLoaded, setIsPlaylistItemsLoaded]);
+  }, [propsSongs, tokenContext.token, tokenContext.expiresIn, isPlaylistItemsFetched, setisPlaylistItemsFetched]);
 
   return (
     <div className="postTracks">

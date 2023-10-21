@@ -6,13 +6,14 @@ import { TokenContext } from "../../App";
 
 export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:()=>void}) {
   const [playlistSelectedId, setPlaylistSelectedId] = useState("");
-  const tokenContext = useContext(TokenContext)
+  const tokenContext = useContext(TokenContext);
+  const [isPlaylistsFetched, setIsPlaylistsFetched] = useState(false)
 
   return (
     <div className="feed">
       <div className="postAdd">
         <div className="sharePlaylist">
-          <Playlists getSelectedPlaylistId={getSelectedPlaylistId} />
+          <Playlists getSelectedPlaylistId={getSelectedPlaylistId} isPlaylistsFetched={isPlaylistsFetched} setIsPlaylistsFetched={setIsPlaylistsFetched} />
           <button className="postPlaylistButton" onClick={sharePlaylist}>
             Share
           </button>

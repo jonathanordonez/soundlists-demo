@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { TokenContext } from "../../App";
 import { UserDetailsContext } from "../../App";
+import { isExpiresInValid } from "../../../Utils";
 
 interface userPlaylistType {
   id: string
@@ -10,14 +11,20 @@ interface userPlaylistType {
 
 interface userPlaylistsType extends Array<userPlaylistType> {}
 
+interface PlaylistsType {
+  getSelectedPlaylistId: (e:React.ChangeEvent<HTMLSelectElement>)=>void
+  isPlaylistsFetched: boolean
+  setIsPlaylistsFetched: React.Dispatch<React.SetStateAction<boolean>>
+  
+}
 
-export default function Playlists({getSelectedPlaylistId}:{getSelectedPlaylistId:(e:React.ChangeEvent<HTMLSelectElement>)=>void}) {
+
+export default function Playlists({getSelectedPlaylistId, isPlaylistsFetched, setIsPlaylistsFetched}:PlaylistsType) {
   const [userPlaylists, setUserPlaylists] = useState([] as userPlaylistsType);
   const tokenContext = useContext(TokenContext);
   const { userDetailsContext } = useContext(UserDetailsContext);
   useEffect(() => {
-    if (!userDetailsContext.spotifyUserId || !tokenContext) {
-      // console.log("Not fetching playlists ");
+    if (!userDetailsContext.spotifyUserId || !tokenContext.expiresIn || !isExpiresInValid(parseFloat(tokenContext.expiresIn)) || isPlaylistsFetched) {
       return;
     }
     callFetchUserPlaylists();
@@ -33,24 +40,37 @@ export default function Playlists({getSelectedPlaylistId}:{getSelectedPlaylistId
             return playlists;
           }
           while (fetchRepeat !== 0) {
-            const request = await fetch(
-              `https://api.spotify.com/v1/users/${userDetailsContext.spotifyUserId}/playlists?limit=50&offset=${offset}`,
-              { headers: { Authorization: `Bearer ${tokenContext.token}` } }
-            );
-            const json = await request.json();
-            let playlistsWithMax100Items = [];
-            for (let playlist of json.items) {
-              if (playlist.tracks.total < 100) {
-                playlistsWithMax100Items.push(playlist);
-              }
-            }
-            playlists = [...playlists, ...playlistsWithMax100Items];
-            if (ranNo === 1) {
-              fetchRepeat = Math.ceil(json.total / 50);
-            }
-            offset += 50;
-            fetchRepeat--;
-            ranNo++;
+
+              const request = await fetch(
+                `https://api.spotify.com/v1/users/${userDetailsContext.spotifyUserId}/playlists?limit=50&offset=${offset}`,
+                { headers: { Authorization: `Bearer ${tokenContext.token}` } }
+                );
+
+                if (request.ok) {
+                  try{
+                    const json = await request.json();
+                    setIsPlaylistsFetched(true);
+                    let playlistsWithMax100Items = [];
+                    for (let playlist of json.items) {
+                      if (playlist.tracks.total < 100) {
+                        playlistsWithMax100Items.push(playlist);
+                      }
+                    }
+                    playlists = [...playlists, ...playlistsWithMax100Items];
+                    if (ranNo === 1) {
+                      fetchRepeat = Math.ceil(json.total / 50);
+                    }
+                    offset += 50;
+                    fetchRepeat--;
+                    ranNo++;
+                  }
+                  catch (error) {
+                    console.error('Failed to process the response:', error);
+                  }
+                }
+                else{
+                  console.error('Failed to fetch data:', request.status, request.statusText);
+                }
           }
           return playlists;
         };
@@ -61,7 +81,7 @@ export default function Playlists({getSelectedPlaylistId}:{getSelectedPlaylistId
       localStorage.setItem("playlists", JSON.stringify(playlists));
       return playlists;
     }
-  }, [tokenContext, userDetailsContext]);
+  }, [tokenContext, userDetailsContext, isPlaylistsFetched, setIsPlaylistsFetched]);
 
   return (
     <select className="playlistSelector" onChange={getSelectedPlaylistId}>
