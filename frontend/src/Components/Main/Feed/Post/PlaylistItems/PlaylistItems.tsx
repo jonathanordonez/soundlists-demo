@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "./PlaylistItems.css";
-import { TokenContext } from "../../../../App";
+import { TokenContext } from "../../../Main";
 import TrackPreviewPlayer from "./Track/TrackPreviewPlayer";
 import { isExpiresInValid } from "../../../../../Utils";
 
@@ -19,6 +19,7 @@ interface SongType {
   name: string
   artists: { name: string; }[]
   preview_url: string
+  external_urls: {spotify: string}
 }
 
 export default function PlaylistItems({ propsSongs, postId, handleSetPreviewUrl, isPlaylistItemsFetched, setisPlaylistItemsFetched }:PlaylistItemsType) {

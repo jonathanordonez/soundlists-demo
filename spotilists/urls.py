@@ -9,8 +9,4 @@ urlpatterns = [
     path('get_posts', views.get_posts),
     path('delete_post', views.delete_post),
     path('upload_profile_picture', views.upload_profile_picture),
-
-
-
-
 ]

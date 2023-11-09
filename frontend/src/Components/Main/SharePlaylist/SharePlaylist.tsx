@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import Playlists from "./Playlists";
 import { updateToast, getPlaylistItems } from "../../../Utils";
-import { TokenContext } from "../../App";
+import { TokenContext } from "../Main";
 
 export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:()=>void}) {
   const [playlistSelectedId, setPlaylistSelectedId] = useState("");
@@ -87,6 +87,8 @@ export default function SharePlaylist({ handleRefreshFeed }:{handleRefreshFeed:(
       let newToast = updateToast();
       newToast("Playlist added!");
     } else {
+      let newToast = updateToast();
+      newToast("Failed to add playlist");
       console.error("Playlist not added");
     }
 

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { addSongsToPlaylist, createPlaylist } from "../../../Utils";
-import { UserDetailsContext } from "../../App";
-import { TokenContext } from "../../App";
+import { UserDetailsContext } from "../Main";
+import { TokenContext } from "../Main";
 import {
   updateToast,
   getOverlayContentTop,

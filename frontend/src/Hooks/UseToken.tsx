@@ -22,7 +22,7 @@ export default function UseToken() {
 
         startUpdateTokenTimer((parseFloat(tokenContext.expiresIn) - Date.now()) / 1000);
       } else {
-        // console.log("Case 2");
+        console.log("Case 2");
         let [token, expiresIn] = await fetchTokenFromBackend();
         setTokenContext({ token: token, expiresIn: expiresIn });
       }
@@ -46,7 +46,10 @@ export default function UseToken() {
 
   async function fetchTokenFromBackend() {
     const request = await fetch(
-      `${process.env.REACT_APP_PYTHONHOST}/api/fetch_token`
+      `${process.env.REACT_APP_PYTHONHOST}/api/fetch_token`,
+      {
+        credentials: "include",
+      }
     );
     const { token, expiresInTimestamp: expiresIn } = await request.json();
     return [token, expiresIn];

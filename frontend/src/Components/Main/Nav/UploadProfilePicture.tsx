@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import { updateToast } from "../../../Utils";
-import { UserDetailsContext } from "../../App";
+import { UserDetailsContext } from "../Main";
 
 interface UploadProfilePictureProps {
   profilePicture: string | null

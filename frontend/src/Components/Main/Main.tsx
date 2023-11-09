@@ -1,12 +1,40 @@
-import React, { useContext, useState, useRef, createContext } from "react";
-import { UserDetailsContext } from "../App";
+import React, { useState, useRef, createContext, useEffect } from "react";
+import UseToken from "../../Hooks/UseToken";
 import Feed from "./Feed/Feed";
 import Nav from "./Nav/Nav";
 import Toast from "./Toast/Toast";
-import Overlay from "./Overlay/Overlay";
+import OverlaySettings from "./Overlay/OverlaySettings";
 import SharePlaylist from "./SharePlaylist/SharePlaylist";
 import OverlayCopyToSpotify from "./Overlay/OverlayCopyToSpotify";
 import PreviewPlayer from "./PreviewPlayer/PreviewPlayer";
+import { getUserDetails } from "../../Utils";
+
+export interface TokenContextType  {
+  token: string | null;
+  expiresIn: string | null;
+};
+
+export const TokenContext = createContext<TokenContextType>({token: '', expiresIn: ''});
+
+export interface UserDetailsContextType {
+  userDetailsContext: UserDetailsValuesType;
+  setUserDetailsContext: React.Dispatch<React.SetStateAction<UserDetailsValuesType>>
+}
+
+export const UserDetailsContext = createContext<UserDetailsContextType>({userDetailsContext: {
+  username: '',
+  profilePicture: '',
+  spotifyUserId: '',
+},
+setUserDetailsContext: () => {},
+});
+
+interface UserDetailsValuesType  
+  {
+    username: string | null,
+    profilePicture: string,
+    spotifyUserId:string,
+  }
 
 const previewPlayerDefaultValues = {
   playerState: '',
@@ -35,20 +63,47 @@ interface overlayDataType {
 }
 
 export default function Main() {
+  const tokenContext = UseToken();
+  const [userDetailsContext, setUserDetailsContext] = useState<UserDetailsValuesType>({
+    username: "",
+    profilePicture: "default-profile-pic.jpg",
+    spotifyUserId: "",
+  });
   const [overlayOn, setOverlayOn] = useState(false);
   const [overlayOnCopyToSpotify, setOverlayOnCopyToSpotify] = useState(false);
   const overlayData = useRef({} as overlayDataType);
   const [refreshFeedCounterFromMain, setRefreshFeedCounterFromMain] =
     useState(1);
-  const { userDetailsContext } = useContext(UserDetailsContext);
   const { username, profilePicture } = userDetailsContext;
   const [previewPlayerContext, setPreviewPlayerContext] = useState(previewPlayerDefaultValues);
   const [previewUrl, setPreviewUrl] = useState('');
 
+  useEffect(() => {
+    (async () => {
+      const request = await getUserDetails();
+      if (request.status === "successful") {
+        if (request.has_data) {
+          setUserDetailsContext({
+            username: request.username,
+            profilePicture: request.profile_picture,
+            spotifyUserId: request.spotifyUserId,
+          });
+        }
+      } 
+      else{ 
+        console.error("Failed to fetch user details");
+        localStorage.clear(); // To ensure the user has to sign in next time and a session ID is provided
+      }
+    })();
+  }, []);
+
   return (
-    <>
+    <TokenContext.Provider value={{ ...tokenContext }}>
+    <UserDetailsContext.Provider
+      value={{ userDetailsContext, setUserDetailsContext }}
+    >
       {overlayOn && (
-        <Overlay
+        <OverlaySettings
           setOverlayOnHandler={setOverlayOnHandler}
           profilePicture={profilePicture}
         />
@@ -96,7 +151,8 @@ export default function Main() {
           </PreviewPlayerContext.Provider>
         </div>
       </div>
-    </>
+      </UserDetailsContext.Provider>
+      </TokenContext.Provider>
   );
 
   function setOverlayOnHandler() {
@@ -132,4 +188,5 @@ export default function Main() {
   function handleSetPreviewUrl(preview_url:string) {
     setPreviewUrl(preview_url);
   }
+
 }

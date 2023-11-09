@@ -2,7 +2,7 @@ import React, {useContext, useState } from "react";
 import PostFooter from "./PostFooter/PostFooter";
 import PlaylistItems from "./PlaylistItems/PlaylistItems";
 import PostProfile from "./PostProfile/PostProfile";
-import { UserDetailsContext } from "../../../App";
+import { UserDetailsContext } from "../../Main";
 import { PostValuesType } from "../Feed";
 
 interface PostType{

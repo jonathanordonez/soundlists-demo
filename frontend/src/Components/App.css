@@ -843,3 +843,12 @@ ul {
 .trackArtist {
   font-size: 14px;
 }
+
+.trackArtist {
+  font-weight: 300;
+}
+
+.trackName a{
+  text-decoration: none;
+  color: black;
+}

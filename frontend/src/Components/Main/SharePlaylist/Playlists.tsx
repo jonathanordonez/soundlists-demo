@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { TokenContext } from "../../App";
-import { UserDetailsContext } from "../../App";
+import { TokenContext } from "../Main";
+import { UserDetailsContext } from "../Main";
 import { isExpiresInValid } from "../../../Utils";
 
 interface userPlaylistType {
@@ -50,13 +50,13 @@ export default function Playlists({getSelectedPlaylistId, isPlaylistsFetched, se
                   try{
                     const json = await request.json();
                     setIsPlaylistsFetched(true);
-                    let playlistsWithMax100Items = [];
+                    let playlistsWithMax20Items = [];
                     for (let playlist of json.items) {
-                      if (playlist.tracks.total < 100) {
-                        playlistsWithMax100Items.push(playlist);
+                      if (playlist.tracks.total <= 20 && playlist.tracks.total >= 5) {
+                        playlistsWithMax20Items.push(playlist);
                       }
                     }
-                    playlists = [...playlists, ...playlistsWithMax100Items];
+                    playlists = [...playlists, ...playlistsWithMax20Items];
                     if (ranNo === 1) {
                       fetchRepeat = Math.ceil(json.total / 50);
                     }
