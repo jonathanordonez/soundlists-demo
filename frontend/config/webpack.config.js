@@ -187,6 +187,9 @@ module.exports = function (webpackEnv) {
   return {
     target: ['browserslist'],
     devServer : {
+      client: {
+        overlay: false,
+      },    
       host: '127.0.0.1', // or your preferred host
       port: 3000, // or your preferred port
       open: true, // Automatically open a new browser window when the development server starts

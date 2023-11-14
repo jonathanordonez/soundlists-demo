@@ -73,7 +73,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpackEnv=development webpack serve --mode development --config config/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpackEnv=production webpack --mode production --config config/webpack.config.js",
-    "test": "node scripts/test.js"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -94,6 +94,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "cross-env": "^7.0.3",
     "jest": "^27.5.1",
     "webpack-cli": "^5.1.4"
