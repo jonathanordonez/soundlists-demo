@@ -17,7 +17,7 @@
       "declaration": true,
       "noImplicitAny": true
     },
-    "include": ["src/**/*.tsx", "src/**/*.ts", "src/Utils.test.js"],
+    "include": ["src/**/*.tsx", "src/**/*.ts", "src/Utils.test.tsx"],
     "exclude": ["node_modules"]
   }
   
