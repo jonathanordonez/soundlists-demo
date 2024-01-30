@@ -72,6 +72,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     config('REACT_SERVER'),
+    'https://soundlists-demo.jonathanordonez.com'
 ]
 
 ROOT_URLCONF = 'proj6_spotilists.urls'
