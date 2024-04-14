@@ -15,7 +15,7 @@ export default function UseToken() {
     (async () => {
       // If token is not empty AND expiresIn is valid
       if (tokenContext.token && tokenContext.expiresIn && isExpiresInValid(parseFloat(tokenContext.expiresIn))) {
-        // console.log("Case 1");
+         console.log("Case 1");
         // Update token and timestamp in local storage
         window.localStorage.setItem("token", tokenContext.token);
         window.localStorage.setItem("expiresIn", tokenContext.expiresIn);
@@ -28,7 +28,7 @@ export default function UseToken() {
       }
       startTokenCheckInterval();
     })();
-  }, [tokenContext, tokenRefreshTrigger]);
+  }, [ tokenRefreshTrigger]);
 
   return tokenContext
 
